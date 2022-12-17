@@ -3,10 +3,14 @@ const winStrategy = document.querySelector('#win-strategy')
 const resetButton = document.querySelector('#reset-button')
 const tttBoard = document.querySelector('#ttt-board')
 
-const spaces = ''
 const playerOne = 'X'
 const playerTwo = 'O'
 let currentPlayer = playerOne
+var board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+]
 
 const makeBoard = () => {
     while (tttBoard.firstChild) {
@@ -26,7 +30,7 @@ const playAreaClicked = (event) => {
     const areaStyle = event.target.innerText
     if (!areaStyle) {
         event.target.innerText = currentPlayer
-        if (playerWon()) {
+        if (checkForWinner()) {
             playerTurn.innerText = `${currentPlayer} has won!`;
             // restart();
             return;
@@ -35,38 +39,15 @@ const playAreaClicked = (event) => {
     }
 }
 
-const playerWon = () => {
-    if (spaces[0] === currentPlayer) {
-        if (spaces[1] && spaces[2] === currentPlayer) {
-            winStrategy.innerText = `${currentPlayer} wins up top!`
-            return true
-        }else if (spaces[3] && spaces[6] === currentPlayer) {
-            winStrategy.innerText = `${currentPlayer} wins on the left side!`
-            return true
-        }else if (spaces[4] && spaces[8] === currentPlayer) {
-            winStrategy.innerText = `${currentPlayer} wins diagonally!`
-            return true
-        }
-    }
-    if (spaces[8] === currentPlayer) {
-        if (spaces[2] && spaces[5] === currentPlayer) {
-          strategy.innerText = `${currentPlayer} wins on the right side!`;
-          return true;
-        }else if (spaces[6] && spaces[7] === currentPlayer) {
-          strategy.innerText = `${currentPlayer} wins on the bottom`;
-          return true;
-        }
-    }
-    if (spaces[4] === currentPlayer) {
-        if (spaces[1] && spaces[7] === currentPlayer) {
-          strategy.innerText = `${currentPlayer} wins vertically on middle`;
-          return true;
-        }else if (spaces[3] && spaces[5] === currentPlayer) {
-          strategy.innerText = `${currentPlayer} wins horizontally on the middle`;
-          return true;
-        }else if (spaces[2] && spaces[6] === currentPlayer) {
-          strategy.innerText = `${currentPlayer} wins diagonally`;
-          return true;
+const checkForWinner = () => {
+    // checking station
+    for (let i = 0; i < 3; i++) {
+        if (board[i][0] === board[i][1] && board[i][0] === board[i][2] && board[i][0] !== '') {
+          showResult(board[i][0]); // checks for rows
+          return;
+        }else if (board[0][i] === board[1][i] && board[0][i] === board[2][i] && board[0][i] !== '') {
+          showResult(board[0][i]); // checks for columns
+          return;
         }
     }
 }

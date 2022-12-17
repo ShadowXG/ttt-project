@@ -16,7 +16,8 @@ body {
     min-width: 300px;
     min-height: 300px;
     box-sizing: border-box;
-    font-size: 125px;
+    font-size: 250px;
+    text-align: center;
     border: 3px solid black;
     cursor: pointer;
 }
