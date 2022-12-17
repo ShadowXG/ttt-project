@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     display: flex;
     justify-content: center;
@@ -8,13 +11,16 @@ body {
 #ttt-board {
     width: 900px;
     height: 900px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
-.area {
-    display: inline-block;
-    width: 294px;
-    height: 294px;
-    margin: -2px;
+.playArea {
+    /* display: inline-block; */
+    min-width: 300px;
+    min-height: 300px;
+    box-sizing: border-box;
+    font-size: 36px;
     border: 3px solid black;
     cursor: pointer;
 }
