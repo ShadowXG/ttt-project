@@ -7,12 +7,11 @@ let array = []
 const playerOne = 'X'
 const playerTwo = 'O'
 let currentPlayer = playerOne
-console.log(currentPlayer)
 
 const playerTurn = () => {
-    console.log(currentPlayer)
     Turn.innerText = `It's your turn! Player: ${currentPlayer}`
 }
+
 const makeBoard = () => {
     while (tttBoard.firstChild) {
         tttBoard.removeChild(tttBoard.firstChild)
@@ -37,6 +36,8 @@ const playAreaClicked = (event) => {
             Turn.innerText = `${currentPlayer} has won!`;
             resetBoard()
             return;
+        }else if (checkforDraw()) {
+            return
         }
         currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne
         playerTurn()
@@ -77,9 +78,18 @@ const checkForWinner = () => {
     }
 }
 
+const checkforDraw = () => {
+    let draw = 0
+    array.forEach((array, i) => {
+        if (array[i] !== null) draw++
+    })
+    if (draw === 9) {
+        winStrategy.innerText = `It's a Draw!`
+        resetBoard()
+    }
+}
+
 const resetBoard = (event) => {
-    console.log(`resetBoard has triggered`)
-    // array.forEach((array, i) => {
     for (let i = 1; i <= 9; i++) {
         console.log(`Still something in there`)
         array.pop()
@@ -88,7 +98,7 @@ const resetBoard = (event) => {
     setTimeout(() => {
         winStrategy.innerText = ''
         playerTurn()
-    }, 3000)
+    }, 4000)
     makeBoard()
 }
 
@@ -99,8 +109,9 @@ const changeButton = () => {
 resetButton.addEventListener('click', () => {
     changeButton()
     resetBoard()
-})
-
-document.addEventListener('DOMContentLoaded', () => {
     playerTurn()
 })
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     playerTurn()
+// })
